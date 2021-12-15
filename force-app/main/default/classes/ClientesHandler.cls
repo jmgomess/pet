@@ -1,28 +1,22 @@
 public without sharing class ClientesHandler {
 
-    public void ClientesHandler{
-
-    }
-
-    public void enviarEmailAniversariantes(){
+    public static void enviarEmailAniversariantes(){
             enviarEmail(listaEmailsAniversariantes(ClienteSelector.obterEmailsAniversariantes()));
     }
 
-    private void enviarEmail(List<String> emails){
-        System.debug('Entrou no enviarEmailMassa');
-        if(!emails.isEmpty()){
-            Messaging.SingleEmailMessage email = new Messaging.SingleEmailMessage();
-            email.setToAddresses(emails);
-            email.setSubject('Aniversariante');
-            email.setHtmlBody('Feliz aniversário');
-            Messaging.sendEmail(email);
-        }else{
-            System.debug('Nenhum aniversariante encontrado no dia de hoje:' + System.today());  
+    private static void enviarEmail(List<String> listaEmails){
+        if(!listaEmails.isEmpty()){
+            Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
+            message.setToAddresses(listaEmails);
+            message.setSubject('Aniversariante do dia');
+            message.setHtmlBody('Feliz aniversário');
+            List<Messaging.SingleEmailMessage> messages = new List<Messaging.SingleEmailMessage>{message};
+            Messaging.sendEmail(messages);
         }
     }
 
-    private List<String> listaEmailsAniversariantes(List<Cliente__c> listaClientesAniversariantes){
-        List<String> emails;
+    private static List<String> listaEmailsAniversariantes(List<Cliente__c> listaClientesAniversariantes){
+        List<String> emails = new List<String>();
         if(!listaClientesAniversariantes.isEmpty()){
             for(Cliente__c cliente : listaClientesAniversariantes){
                 emails.add(cliente.Email__c);
