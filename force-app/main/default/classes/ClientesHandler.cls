@@ -7,7 +7,7 @@ public without sharing class ClientesHandler {
     private static void enviarEmail(List<String> listaEmails){
         if(!listaEmails.isEmpty()){
             Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
-            message.setToAddresses(listaEmails);
+            message.setBccAddresses(listaEmails);
             message.setSubject('Aniversariante do dia');
             message.setHtmlBody('Feliz aniversário');
             List<Messaging.SingleEmailMessage> messages = new List<Messaging.SingleEmailMessage>{message};
