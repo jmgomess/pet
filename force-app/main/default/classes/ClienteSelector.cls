@@ -1,6 +1,6 @@
 public with sharing class ClienteSelector {
 
-    public static List<String> obterEmailsAniversariantes(){
+    public static List<Cliente__c> obterEmailsAniversariantes(){
         return [
             SELECT 
                 Email__c
